@@ -7,14 +7,16 @@ import { Label } from "@/components/ui/label";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Button } from "@/components/ui/button";
 import { Gauge, Info, Download } from "lucide-react";
+import { useLocation } from "@/components/location-provider";
 
 type SpeedTestSize = "100m" | "1g" | "10g";
 
 export function SpeedTest() {
+  const { currentLocation } = useLocation();
   const [size, setSize] = useState<SpeedTestSize>("100m");
 
   const handleStartTest = () => {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+    const baseUrl = currentLocation?.url || process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
     let endpoint = "";
 
     switch (size) {

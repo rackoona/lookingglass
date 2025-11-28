@@ -96,10 +96,32 @@ This is the fastest way to get both frontend and backend running together.
 
 #### Step 1: Clone the Repository
 
+**Option A: Clone Full Monorepo** (Recommended for development)
 ```bash
 git clone https://github.com/rackoona/lookingglass.git
 cd lookingglass
 ```
+
+**Option B: Clone Specific Component Only** (For production deployments)
+
+If you only need the backend or frontend:
+
+```bash
+# Clone with sparse checkout
+git clone --filter=blob:none --sparse https://github.com/rackoona/lookingglass.git
+cd lookingglass
+
+# For backend only:
+git sparse-checkout set backend
+
+# For frontend only:
+git sparse-checkout set frontend
+
+# For both (but not other files):
+git sparse-checkout set backend frontend
+```
+
+This saves bandwidth and disk space, especially useful when deploying to multiple servers.
 
 #### Step 2: Configure Backend Environment
 
@@ -199,8 +221,11 @@ For development or when Docker is not available.
 #### Backend Setup
 
 ```bash
-# From the lookingglass root directory
+# If you cloned the full repo:
 cd backend
+
+# If you used sparse checkout for backend only:
+# You're already in the right place after git sparse-checkout set backend
 
 # Install uv (Python package manager)
 curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -221,8 +246,11 @@ Backend will be available at http://localhost:8000
 #### Frontend Setup
 
 ```bash
-# From the lookingglass root directory (in a new terminal)
+# If you cloned the full repo (in a new terminal):
 cd frontend
+
+# If you used sparse checkout for frontend only:
+# You're already in the right place after git sparse-checkout set frontend
 
 # Install dependencies
 npm install

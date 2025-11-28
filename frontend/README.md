@@ -38,11 +38,28 @@ A modern, React-based frontend for network diagnostics, powered by Next.js 16 an
 
 ### Installation
 
-1. **Clone the monorepo:**
+1. **Clone the repository:**
 
+   **Option A: Clone Entire Monorepo**
    ```bash
    git clone https://github.com/rackoona/lookingglass.git
    cd lookingglass/frontend
+   ```
+
+   **Option B: Clone Frontend Only (Sparse Checkout)**
+
+   If you only need the frontend and want to save bandwidth/disk space:
+
+   ```bash
+   # Initialize sparse checkout
+   git clone --filter=blob:none --sparse https://github.com/rackoona/lookingglass.git
+   cd lookingglass
+   
+   # Checkout only the frontend directory
+   git sparse-checkout set frontend
+   
+   # Navigate to frontend
+   cd frontend
    ```
 
 2. **Install dependencies:**
