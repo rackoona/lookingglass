@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useTheme } from "next-themes";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLocation } from "@/components/location-provider";
@@ -20,9 +20,10 @@ export function AppHeader() {
   const [mounted, setMounted] = useState(false);
   const { locations, currentLocation, setCurrentLocation } = useLocation();
 
-  if (typeof window !== 'undefined' && !mounted) {
+  // Handle mounting safely with useEffect
+  useEffect(() => {
     setMounted(true);
-  }
+  }, []);
 
   return (
     <header
@@ -44,6 +45,7 @@ export function AppHeader() {
               className={`object-contain transition-all duration-300 ${
                 mounted && resolvedTheme === "dark" ? "brightness-0 invert" : ""
               }`}
+              sizes="(max-width: 640px) 128px, 144px"
               priority
             />
           </div>
